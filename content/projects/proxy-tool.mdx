@@ -1,0 +1,35 @@
+---
+title: Proxy Tool
+description: 跨平台网络代理工具，支持多种协议和规则路由
+tech: [Go, HTTP/2, WebSocket]
+status: active
+---
+
+## 项目概述
+
+一个高性能的跨平台网络代理工具，支持灵活的规则路由。
+
+## 技术栈
+
+- **语言**: Go
+- **协议**: HTTP/2, WebSocket, TCP/UDP
+- **加密**: TLS 1.3, AEAD
+- **存储**: SQLite (规则配置)
+
+## 功能特性
+
+- 🔄 多协议支持（HTTP/HTTPS/SOCKS5）
+- 📋 灵活的规则引擎（域名/IP/GeoIP/自定义）
+- ⚡ 高性能（基于 Go 协程）
+- 📊 实时流量统计和日志
+
+## 使用示例
+
+```bash
+# 启动代理
+proxy-tool start --port 1080
+
+# 规则路由：国内流量直连，国外走代理
+proxy-tool rule add --type geoip --value CN --action direct
+proxy-tool rule add --type geoip --value !CN --action proxy
+```

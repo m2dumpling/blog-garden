@@ -1,0 +1,79 @@
+---
+title: Spring Boot 与 Redis 缓存实战
+description: 如何在 Spring Boot 中优雅地集成 Redis 缓存
+author: Dumpling
+date: 2026-06-20
+tags: [Java, Spring, Redis]
+---
+
+## 为什么需要缓存？
+
+在 Web 应用中，缓存是提升性能最有效的手段之一：
+
+- 减少数据库查询次数
+- 降低响应延迟
+- 减轻系统负载
+
+## Spring Boot + Redis 配置
+
+### 1. 添加依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-cache</artifactId>
+</dependency>
+```
+
+### 2. 启用缓存
+
+```java
+@Configuration
+@EnableCaching
+public class CacheConfig {
+    
+    @Bean
+    public RedisCacheManager cacheManager(RedisConnectionFactory factory) {
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
+            .entryTtl(Duration.ofMinutes(10))  // 缓存 TTL
+            .serializeKeysWith(
+                RedisSerializationContext.SerializationPair
+                    .fromSerializer(new StringRedisSerializer())
+            );
+        
+        return RedisCacheManager.builder(factory)
+            .cacheDefaults(config)
+            .build();
+    }
+}
+```
+
+### 3. 使用缓存注解
+
+```java
+@Service
+public class UserService {
+    
+    @Cacheable(value = "users", key = "#id")
+    public User getUserById(Long id) {
+        // 此方法结果将被缓存
+        return userRepository.findById(id).orElse(null);
+    }
+    
+    @CacheEvict(value = "users", key = "#user.id")
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+}
+```
+
+## 最佳实践
+
+1. **合理设置 TTL**：热点数据短 TTL，冷数据长 TTL
+2. **缓存穿透防护**：使用布隆过滤器或缓存空值
+3. **缓存雪崩防护**：TTL 加随机偏移量
+4. **监控缓存命中率**：通过 Redis INFO 命令或 Spring Actuator

@@ -1,0 +1,86 @@
+# ============================================================
+# Decap CMS 配置
+# ============================================================
+# 本地开发：无需登录，直接编辑（内容保存在本地，不提交 git）
+#   启动方式：npx decap-server
+#   然后打开 http://localhost:3000/admin/index.html
+#
+# 生产环境：GitHub OAuth 登录
+#   1. 去 https://github.com/settings/developers 注册 OAuth App
+#      名称: my-tech-site-cms
+#      Homepage URL: https://你的域名
+#      Authorization callback URL: https://你的域名/admin/
+#   2. 拿到 Client ID，填到下面 client_id 字段
+#   3. 去掉 local_backend: true 这行，提交部署
+# ============================================================
+
+# --- 本地测试：去掉这行即为生产模式 ---
+local_backend: true
+
+backend:
+  name: github
+  repo: m2dumpling/my-tech-site
+  branch: main
+  # --- 生产环境：填写 GitHub OAuth App 的 Client ID ---
+  # client_id: 你的GitHub OAuth Client ID
+
+media_folder: public/images
+public_folder: /images
+
+site_url: https://my-tech-site.vercel.app
+display_url: https://my-tech-site.vercel.app
+locale: zh_Hans
+
+# ============================================================
+# 内容集合（与 lib/modules/registry.ts 一一对应）
+# ============================================================
+collections:
+  - name: blog
+    label: 📝 博客
+    label_singular: 文章
+    folder: content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { name: title, label: 标题, widget: string }
+      - { name: description, label: 简介, widget: text }
+      - { name: author, label: 作者, widget: string, default: Dumpling }
+      - { name: date, label: 日期, widget: date, format: YYYY-MM-DD }
+      - { name: tags, label: 标签, widget: list, default: [] }
+      - { name: body, label: 正文, widget: markdown }
+
+  - name: projects
+    label: 🔧 项目
+    label_singular: 项目
+    folder: content/projects
+    create: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { name: title, label: 项目名称, widget: string }
+      - { name: description, label: 简介, widget: text }
+      - { name: tech, label: 技术栈, widget: list, default: [] }
+      - { name: status, label: 状态, widget: select, options: [{ label: "进行中", value: "active" }, { label: "已完成", value: "completed" }, { label: "已归档", value: "archived" }], default: active }
+      - { name: body, label: 正文, widget: markdown }
+
+  - name: docs
+    label: 📚 知识库
+    label_singular: 文档
+    folder: content/docs
+    create: true
+    slug: "{{slug}}"
+    extension: mdx
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - { name: title, label: 标题, widget: string }
+      - { name: description, label: 简介, widget: text }
+      - { name: body, label: 正文, widget: markdown }

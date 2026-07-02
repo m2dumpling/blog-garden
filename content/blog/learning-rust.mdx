@@ -1,0 +1,55 @@
+---
+title: Rust 学习笔记：所有权与生命周期!
+description: 理解 Rust 最核心的概念——所有权系统
+author: Dumpling
+date: 2026-06-25
+tags:
+  - Rust
+  - Programming
+---
+
+## 所有权规则
+
+Rust 的所有权系统是它的核心创新，规则很简单：
+
+1. **每个值都有一个所有者**
+2. **同一时间只有一个所有者**
+3. **所有者离开作用域时值被释放**
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1;  // 所有权从 s1 移动到 s2
+    
+    // println!("{s1}");  // ❌ 编译错误！s1 已失效
+    println!("{s2}");     // ✅ 正常
+}
+```
+
+## 引用与借用
+
+不想转移所有权？用引用：
+
+```rust
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}  // s 离开作用域，但因为是借用，不释放值
+
+fn main() {
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("'{}' 的长度是 {len}", s1);  // ✅ s1 仍可用
+}
+```
+
+## 生命周期
+
+生命周期标注告诉编译器引用之间的关联：
+
+```rust
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() { x } else { y }
+}
+```
+
+> **要点**：返回值的生命周期不能长于输入参数的生命周期。

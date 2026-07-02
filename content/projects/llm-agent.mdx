@@ -1,0 +1,49 @@
+---
+title: LLM Agent Framework
+description: 基于 MCP 协议构建的通用 AI Agent 框架
+tech: [Python, FastAPI, MCP, LangChain]
+status: active
+---
+
+## 项目概述
+
+基于 MCP (Model Context Protocol) 协议构建的通用 AI Agent 框架，支持工具注册、多 Agent 协作和记忆管理。
+
+## 技术栈
+
+- **框架**: FastAPI + LangChain
+- **协议**: MCP (Model Context Protocol)
+- **向量库**: ChromaDB / Milvus
+- **LLM**: 支持 OpenAI / Claude / 本地模型
+- **部署**: Docker + Kubernetes
+
+## 核心架构
+
+```
+User Input
+    │
+    ▼
+┌─────────────────────┐
+│   Router Agent      │  ← 任务分发
+└─────────┬───────────┘
+          │
+    ┌─────┼─────┐
+    ▼     ▼     ▼
+┌─────┐┌─────┐┌─────┐
+│Code ││Data ││Web  │
+│Agent││Agent││Agent│
+└──┬──┘└──┬──┘└──┬──┘
+   │      │      │
+   └──────┼──────┘
+          ▼
+┌─────────────────────┐
+│   MCP Tools Hub     │  ← 工具注册中心
+└─────────────────────┘
+```
+
+## 亮点
+
+- 🔌 插件化工具注册
+- 🧠 混合记忆系统（对话 + 知识库）
+- 🤝 多 Agent 协作工作流
+- 📦 Docker 一键部署
