@@ -3,6 +3,11 @@ import { createSearchAPI } from 'fumadocs-core/search/server';
 
 /**
  * 统一搜索 API — 索引 docs + blog + projects 全部内容
+ *
+ * ⚠️ 生产部署建议：
+ *   - Vercel 免费层自带 DDoS 防护
+ *   - 如需严格限流，在 Vercel Dashboard → Settings → Firewall 配置
+ *   - 个人站点日访问量低，Orama 搜索极轻量，风险很低
  */
 export const { GET } = createSearchAPI('simple', {
   language: 'english',
@@ -15,7 +20,6 @@ export const { GET } = createSearchAPI('simple', {
 
     const items = await Promise.all(
       allPages.map(async (page) => {
-        // 提取 MDX 处理后的纯文本（搜索核心依据）
         let text = '';
         try {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
