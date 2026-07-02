@@ -25,8 +25,11 @@ yarn-error.log*
 CLAUDE.md
 .spec-workflow
 
-# others
+# env
+.env
 .env*.local
+
+# others
 .vercel
 next-env.d.ts
 .playwright-mcp
