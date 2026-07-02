@@ -19,7 +19,7 @@ local_backend: true
 
 backend:
   name: github
-  repo: m2dumpling/my-tech-site
+  repo: m2dumpling/digital-garden
   branch: main
   # --- 生产环境：填写 GitHub OAuth App 的 Client ID ---
   # client_id: 你的GitHub OAuth Client ID
@@ -27,8 +27,8 @@ backend:
 media_folder: public/images
 public_folder: /images
 
-site_url: https://my-tech-site.vercel.app
-display_url: https://my-tech-site.vercel.app
+site_url: https://digital-garden.vercel.app
+display_url: https://digital-garden.vercel.app
 locale: zh_Hans
 
 # ============================================================
