@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { moduleRegistry } from '@/lib/modules/registry';
 import { getMDXComponents } from '@/components/mdx';
+import { DocsBody } from 'fumadocs-ui/layouts/docs/page';
 import type { Metadata } from 'next';
 import type { ComponentType } from 'react';
 
@@ -49,20 +50,26 @@ export default async function ModuleDetailPage({ params }: Props) {
       {showTech ? (
         <div className="flex flex-wrap gap-1.5 mb-6">
           {techs.map((t) => (
-            <span key={t} className="text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-md">{t}</span>
+            <span key={t} className="tag-pill">{t}</span>
           ))}
         </div>
       ) : null}
 
       {showStatus ? (
-        <span className="inline-block text-xs bg-secondary px-2 py-0.5 rounded-md mb-6">
-          {data.status as string}
-        </span>
+        <div className="mb-6">
+          <span className="inline-flex items-center gap-1 tag-pill">
+            <span className={`w-1.5 h-1.5 rounded-full ${
+              data.status === 'active' ? 'bg-green-500' :
+              data.status === 'completed' ? 'bg-blue-500' : 'bg-gray-400'
+            }`} />
+            {data.status as string}
+          </span>
+        </div>
       ) : null}
 
-      <div className="max-w-none">
+      <DocsBody>
         <MDX components={getMDXComponents() as Record<string, ComponentType<unknown>>} />
-      </div>
+      </DocsBody>
     </div>
   );
 }
