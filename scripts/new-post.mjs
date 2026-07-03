@@ -36,14 +36,19 @@ if (!VALID_MODULES.includes(module)) {
 const folderMap = { blog: 'blog', project: 'projects', doc: 'docs' };
 const folder = folderMap[module];
 
-// 生成 slug
-const slug = title
+// 生成 slug（仅 ASCII，中文标题用日期作文件名）
+let slug = title
   .trim()
   .toLowerCase()
-  .replace(/[^\w\s一-鿿-]/g, '')
+  .replace(/[^\w\s-]/g, '')   // 只保留英文、数字、空格、连字符
   .replace(/\s+/g, '-')
   .replace(/-+/g, '-')
-  .replace(/^-|-$/g, '') || 'untitled';
+  .replace(/^-|-$/g, '');
+
+if (!slug) {
+  // 纯中文标题 → 用日期作 slug
+  slug = today.replace(/-/g, '');
+}
 
 // 今天日期
 const today = new Date().toISOString().slice(0, 10);
