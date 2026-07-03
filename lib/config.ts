@@ -10,7 +10,7 @@ export const siteConfig = {
   /** GitHub */
   github: {
     user: 'm2dumpling',
-    repo: 'digital-garden',
+    repo: 'blog-garden',
     branch: 'main',
   },
 } as const;

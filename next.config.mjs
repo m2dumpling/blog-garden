@@ -19,21 +19,9 @@ const config = {
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
         ],
       },
-      {
-        source: '/admin/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'no-store' },
-        ],
-      },
     ];
   },
 
-  async rewrites() {
-    return [
-      { source: '/admin', destination: '/admin/index.html' },
-      { source: '/admin/', destination: '/admin/index.html' },
-    ];
-  },
 };
 
 export default withMDX(config);
