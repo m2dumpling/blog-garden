@@ -1,27 +1,16 @@
 # Decap CMS — 内容管理后台
-# 部署即用，无需额外配置。如需使用 CMS 编辑内容，配置 GitHub OAuth 即可登录。
-#
-# GitHub OAuth 配置（5 分钟）：
-#   1. https://github.com/settings/developers → New OAuth App
-#   2. Homepage URL:  https://你的域名
-#   3. Callback URL:   https://你的域名/admin/
-#   4. 把 Client ID 填到下方 client_id 字段
-#
-# 本地开发（不想配 OAuth）：
-#   在上方加一行 `local_backend: true`，然后执行 npx decap-server，
-#   打开 /admin 即可免登录编辑。测试完记得删掉这行。
+# 使用 Netlify Identity + Git Gateway，部署即用
 
 backend:
-  name: github
+  name: git-gateway
   repo: m2dumpling/digital-garden
   branch: main
-  # client_id: 你的 GitHub OAuth Client ID
 
 media_folder: public/images
 public_folder: /images
 
-site_url: https://digital-garden.vercel.app
-display_url: https://digital-garden.vercel.app
+site_url: https://hi-dumpling.netlify.app
+display_url: https://hi-dumpling.netlify.app
 locale: zh_Hans
 
 # ============================================================
