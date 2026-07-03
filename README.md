@@ -22,7 +22,15 @@ Built with **Next.js 16 + Fumadocs 16 + Tailwind CSS 4**.
 pnpm install
 pnpm dev          # → http://localhost:3000
 pnpm build        # production build
-npx decap-server  # CMS local proxy (optional)
+```
+
+### CMS (local)
+
+Add `local_backend: true` to `public/admin/config.yml`, then:
+
+```bash
+npx decap-server
+open http://localhost:3000/admin
 ```
 
 ## Architecture
@@ -37,16 +45,16 @@ app/docs/                 ← knowledge base with sidebar + TOC
 
 ## Deploy
 
-Push to GitHub → import to [Vercel](https://vercel.com) → done. Zero manual changes.
+Import to [Vercel](https://vercel.com) → done. Zero config needed.
 
-Optional: configure [GitHub OAuth](https://github.com/settings/developers) to enable the CMS at `/admin`. Without OAuth, the site is fully functional (read-only); the CMS login page won't let anyone in.
+Optional: set up [GitHub OAuth](https://github.com/settings/developers) to unlock the CMS at `/admin`. Without it, the site is fully functional; the CMS login page simply won't authenticate anyone.
 
 ## Security
 
 | Measure | Detail |
 |---------|--------|
-| CMS auth | GitHub OAuth — only collaborators can write |
-| Admin path | Optional Basic Auth via env vars |
+| CMS auth | GitHub OAuth — only repo collaborators can write |
+| Admin path | Optional Basic Auth via `ADMIN_USER` / `ADMIN_PASS` env |
 | HTTP headers | `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy` |
 | External links | `rel="noreferrer"` on all outbound anchors |
 | Infrastructure | Static site, no database — minimal attack surface |

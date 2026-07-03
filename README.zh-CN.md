@@ -22,7 +22,15 @@
 pnpm install
 pnpm dev          # → http://localhost:3000
 pnpm build        # 生产构建
-npx decap-server  # CMS 本地代理（可选）
+```
+
+### 本地 CMS
+
+在 `public/admin/config.yml` 中加一行 `local_backend: true`，然后：
+
+```bash
+npx decap-server
+open http://localhost:3000/admin
 ```
 
 ## 架构
@@ -37,16 +45,16 @@ app/docs/                 ← 知识库，侧边栏 + TOC
 
 ## 部署
 
-推送至 GitHub → 导入 [Vercel](https://vercel.com) → 完成。零额外改动。
+导入 [Vercel](https://vercel.com) → 完成。零配置。
 
-可选：配置 [GitHub OAuth](https://github.com/settings/developers) 启用 `/admin` 的 CMS 编辑功能。不配也不影响网站正常运行，CMS 登录页不会放任何人进去。
+可选：配置 [GitHub OAuth](https://github.com/settings/developers) 解锁 `/admin` 的 CMS 编辑功能。不配也不影响网站正常运行。
 
 ## 安全
 
 | 措施 | 说明 |
 |---------|--------|
 | CMS 鉴权 | GitHub OAuth — 仅仓库协作者可编辑 |
-| Admin 路径 | 可选 Basic Auth（环境变量开关） |
+| Admin 路径 | 可选 Basic Auth，通过 `ADMIN_USER` / `ADMIN_PASS` 环境变量开关 |
 | HTTP 头 | `X-Frame-Options: DENY`、`X-Content-Type-Options: nosniff`、`Referrer-Policy`、`Permissions-Policy` |
 | 外部链接 | 所有外链带 `rel="noreferrer"` |
 | 基础设施 | 纯静态站点，无数据库 — 攻击面天然小 |
