@@ -1,7 +1,6 @@
 {
   "pages": [
     "llm-agent",
-    "proxy-tool",
-    "rail-defect-detection"
+    "proxy-tool"
   ]
 }

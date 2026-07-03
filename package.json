@@ -21,7 +21,6 @@
     "next": "16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "style-to-js": "2.0.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
