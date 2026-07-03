@@ -1,0 +1,38 @@
+---
+title: ArgoV
+description: 双内核零信任代理 · Xray + Sing-box · 一键部署
+---
+
+[ArgoV](https://github.com/m2dumpling/ArgoV) 是双内核零信任代理面板，单 Bash 脚本一键部署。
+
+## 核心能力
+
+- **双内核** — Xray-core 驱动 Argo 隧道，Sing-box 扩展 TUIC / AnyTLS Reality
+- **七协议** — VLESS / VMess / Reality / Hysteria2 / TUIC / AnyTLS / Shadowsocks
+- **Argo 可选** — 通过 Cloudflare 隧道，节点零公网暴露；跳过即可直连
+- **多用户配额** — 独立 UUID + Token，双向流量限额，月度自动重置
+- **聚合订阅** — 跨 VPS 合并为单一 URL，≤10s 同步
+- **证书固定** — HY2 自动 pinSHA256，无需域名
+- **WARP 分流** — SOCKS5 智能分流，落地中继
+
+## 快速安装
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/m2dumpling/ArgoV/main/argov.sh)
+```
+
+非交互模式：
+
+```bash
+NODE_NAME=东京 bash <(curl -Ls https://raw.githubusercontent.com/m2dumpling/ArgoV/main/argov.sh)
+```
+
+安装后输入 `ag` 打开管理面板。
+
+## 兼容
+
+`v2rayN` · `Nekoray` · `Shadowrocket` · `Sing-box` · `Mihomo` · `Clash Verge` · `Karing`
+
+## 源码
+
+<Card title="GitHub · m2dumpling/ArgoV" href="https://github.com/m2dumpling/ArgoV" />
