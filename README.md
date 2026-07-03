@@ -37,9 +37,9 @@ app/docs/                 ← knowledge base with sidebar + TOC
 
 ## Deploy
 
-1. Push to GitHub → import to [Vercel](https://vercel.com) → done.
+Push to GitHub → import to [Vercel](https://vercel.com) → done. Zero manual changes.
 
-**Before deploying:** delete `local_backend: true` from `public/admin/config.yml`. See `.env.example` for optional Basic Auth on `/admin`.
+Optional: configure [GitHub OAuth](https://github.com/settings/developers) to enable the CMS at `/admin`. Without OAuth, the site is fully functional (read-only); the CMS login page won't let anyone in.
 
 ## Security
 

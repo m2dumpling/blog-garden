@@ -37,9 +37,9 @@ app/docs/                 ← 知识库，侧边栏 + TOC
 
 ## 部署
 
-1. 推送至 GitHub → 导入 [Vercel](https://vercel.com) → 完成。
+推送至 GitHub → 导入 [Vercel](https://vercel.com) → 完成。零额外改动。
 
-**部署前：** 删掉 `public/admin/config.yml` 中的 `local_backend: true`。可选参考 `.env.example` 为 `/admin` 加 Basic Auth。
+可选：配置 [GitHub OAuth](https://github.com/settings/developers) 启用 `/admin` 的 CMS 编辑功能。不配也不影响网站正常运行，CMS 登录页不会放任何人进去。
 
 ## 安全
 
