@@ -1,5 +1,13 @@
-# Decap CMS — 内容管理后台
-# 使用 Netlify Identity + Git Gateway，部署即用
+# Decap CMS — 本地编辑工具
+# 线上只展示，不登录；CMS 编辑器在本地用
+#
+# 本地使用：
+#   1. pnpm dev
+#   2. npx decap-server
+#   3. 打开 http://localhost:3000/admin/
+#   4. 编辑 → 保存 → git push → 上线
+
+local_backend: true
 
 backend:
   name: git-gateway
@@ -9,13 +17,8 @@ backend:
 media_folder: public/images
 public_folder: /images
 
-site_url: https://hi-dumpling.netlify.app
-display_url: https://hi-dumpling.netlify.app
 locale: zh_Hans
 
-# ============================================================
-# 内容集合
-# ============================================================
 collections:
   - name: blog
     label: 📝 博客
