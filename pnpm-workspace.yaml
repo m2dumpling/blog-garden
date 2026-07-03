@@ -1,3 +1,6 @@
 allowBuilds:
   esbuild: false
   sharp: false
+
+overrides:
+  style-to-js: 1.0.0
