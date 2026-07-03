@@ -1,0 +1,66 @@
+---
+title: ArgoV
+description: 双内核零信任代理面板 · Xray-core + Sing-box · 7 协议 · 一键部署
+tech: [Bash, Xray-core, Sing-box, Cloudflare Argo, Python]
+status: active
+---
+
+[GitHub → m2dumpling/ArgoV](https://github.com/m2dumpling/ArgoV)
+
+## 项目概述
+
+ArgoV 是双内核零信任代理面板，**单 Bash 脚本一键部署**。Xray-core 驱动 Argo 隧道（可选），Sing-box 扩展 TUIC、AnyTLS Reality 等高级协议。内置多用户流量配额、证书固定、端口跳跃、落地中继、聚合订阅、WARP 分流。
+
+## 技术架构
+
+```
+Xray-core (常驻)                    Sing-box (可选)
+├ VLESS + Argo  :8080               ├ Hysteria2   :8443 (跳变 + pinSHA256)
+├ VMess + Argo  :8081               ├ TUIC        :8444
+├ Reality       :443                ├ AnyTLS      :8445
+├ Hysteria2     :23333              ├ VLESS Reality :8446
+├ Shadowsocks   :8388               └ Shadowsocks :8447
+└ gRPC 流量统计                      └ iptables 端口级统计
+```
+
+## 核心特性
+
+| 类别 | 说明 |
+|------|------|
+| **Argo 隧道** (可选) | VLESS + VMess over Cloudflare，节点零公网暴露。安装时可跳过，后续随时启用 |
+| **七协议** | VLESS / VMess / Reality / Hysteria2 / TUIC / AnyTLS / Shadowsocks |
+| **Reality 隐匿** | XTLS Vision + Reality，自定义 SNI / shortId / 指纹 / x25519 |
+| **Hysteria2** | BBR / Brutal 拥塞，端口跳跃（自定义范围 + 间隔），证书 pinSHA256 |
+| **TUIC / AnyTLS** | Sing-box 原生支持，TUIC QUIC + BBR，AnyTLS Reality 隐匿 |
+| **多用户配额** | 独立 UUID + Token，双向限额，月度自动重置，超额禁用 |
+| **聚合订阅** | 跨 VPS 合并单一 URL，base64 / Clash YAML，≤10s 同步 |
+| **证书固定** | HY2 自动计算 SHA256 指纹，订阅链接 `pinSHA256=` |
+| **落地中继** | SS / VLESS / VMess / Trojan 出口，AsIs DNS 零泄露 |
+| **WARP 分流** | SOCKS5 :40000 + IPv6 智能分流 |
+| **系统兼容** | Debian / Ubuntu / CentOS / Alpine，systemd + OpenRC |
+
+## 快速安装
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/m2dumpling/ArgoV/main/argov.sh)
+```
+
+非交互模式：
+
+```bash
+NODE_NAME=东京 bash <(curl -Ls https://raw.githubusercontent.com/m2dumpling/ArgoV/main/argov.sh)
+```
+
+安装后输入 `ag` 打开管理面板。
+
+## 管理面板
+
+- 🔗 查看/切换节点配置
+- ☁️ 更换 CDN 域名
+- 👥 多用户与流量限额管理
+- 🌐 WARP 分流 · 🔀 落地中继 · 📡 聚合订阅
+- 🧩 Sing-box 子内核开关
+
+## 客户端兼容
+
+`v2rayN v7+` · `Nekoray` · `Shadowrocket` · `Sing-box` · `Mihomo` · `Clash Verge` · `Karing`

@@ -1,6 +1,7 @@
 {
   "pages": [
     "llm-agent",
-    "proxy-tool"
+    "proxy-tool",
+    "proxy-tools"
   ]
 }
